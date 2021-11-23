@@ -23,7 +23,7 @@ public class MaquinaDao extends Dao {
         try {
             sql = "SELECT * FROM Maquina WHERE hostname = '" + hostname
                     + "' AND fkEmpresa = " + fkEmpresa;
-            Logger.escreverLogger("Select da máquina ok.");
+            Logger.escreverLogger("Select da máquina ok. - "+ Logger.geradorDatas());
         } catch (IOException e) {
             Logger.loggerException(e);
         }

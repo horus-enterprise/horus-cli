@@ -26,7 +26,7 @@ public class MonitoramentoHardwareDao extends Dao {
         sql.append(ocorrencia.getRam() + ",");
         sql.append(ocorrencia.getUptime());
         sql.append(");");
-        Logger.escreverLogger("> Insert monitoramento ok.");
+        Logger.escreverLogger("> Insert monitoramento ok. - " + Logger.geradorDatas());
         }catch(IOException e){
             Logger.loggerException(e);
         }
