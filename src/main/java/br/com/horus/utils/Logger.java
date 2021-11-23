@@ -24,10 +24,11 @@ public class Logger {
     static FileOutputStream arquivo;
     static String timeStamp;
     static Integer caminho;
-
+    
     public static void criarLogger() throws IOException {
         timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
         Looca looca = new Looca();
+     
         if (looca.getSistema().getSistemaOperacional().equals("Windows")) {
             File horus = new File("C:\\horus-loggers");
             if (!horus.exists()) {
@@ -35,16 +36,16 @@ public class Logger {
             }
             arquivo = new FileOutputStream("C:\\horus-loggers\\" + timeStamp + ".txt");
             caminho = 1;
-        } else if (looca.getSistema().getSistemaOperacional().equals("Windows") && arquivo == null) {
-            File horus = new File("D:\\horus-loggers");
+        } else if (looca.getSistema().getSistemaOperacional().equals("Linux") ||
+                looca.getSistema().getSistemaOperacional().equals("Ubuntu")) {
+            File horus = new File("/home/urubu100/horus-loggers");
             if (!horus.exists()) {
                 horus.mkdirs();
             }
-            arquivo = new FileOutputStream("D:\\horus-loggers\\" + timeStamp + ".txt");
+            arquivo = new FileOutputStream("/home/urubu100/horus-loggers/" + timeStamp + ".txt");
             caminho = 2;
         } else {
-            arquivo = new FileOutputStream(timeStamp + ".txt");
-            caminho = 3;
+            System.out.println("Não temos suporte para esse sistema operacional.");
         }
     }
 
@@ -59,21 +60,13 @@ public class Logger {
             }
         } else if (caminho == 2) {
             try (
-                     FileWriter caminhoTxt = new FileWriter("D:\\" + "horus-loggers\\" + timeStamp + ".txt", true);  BufferedWriter loopEscrever = new BufferedWriter(caminhoTxt);  PrintWriter escreverTexto = new PrintWriter(loopEscrever)) {
-                escreverTexto.println(texto);
-
-            } catch (IOException e) {
-                Logger.loggerException(e);
-            }
-        } else if (caminho == 3) {
-            try (
-                     FileWriter caminhoTxt = new FileWriter(timeStamp + ".txt", true);  BufferedWriter loopEscrever = new BufferedWriter(caminhoTxt);  PrintWriter escreverTexto = new PrintWriter(loopEscrever)) {
+                     FileWriter caminhoTxt = new FileWriter("/home/urubu100/horus-loggers/" + timeStamp + ".txt", true);  BufferedWriter loopEscrever = new BufferedWriter(caminhoTxt);  PrintWriter escreverTexto = new PrintWriter(loopEscrever)) {
                 escreverTexto.println(texto);
             } catch (IOException e) {
                 Logger.loggerException(e);
             }
         } else {
-            System.out.println("Não temos suporte para esse sistema operacional");
+            System.out.println("Sem sucesso, ainda não temos suporte para esse sistema operacional");
         }
     }
 
