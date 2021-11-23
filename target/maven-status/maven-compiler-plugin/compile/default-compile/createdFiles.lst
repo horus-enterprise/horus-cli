@@ -1,0 +1,14 @@
+br\com\horus\main\App$1.class
+br\com\horus\utils\Session.class
+br\com\horus\utils\Logger.class
+br\com\horus\dao\MonitoramentoHardwareDao.class
+br\com\horus\main\App.class
+br\com\horus\utils\Hostname.class
+br\com\horus\dao\MaquinaDao.class
+br\com\horus\dao\Dao.class
+br\com\horus\dao\FuncionarioDao.class
+br\com\horus\model\MonitoramentoHardware.class
+br\com\horus\model\MonitoramentoWeb.class
+br\com\horus\utils\Time.class
+br\com\horus\model\Funcionario.class
+br\com\horus\model\Maquina.class
