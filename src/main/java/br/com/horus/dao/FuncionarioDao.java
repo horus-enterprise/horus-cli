@@ -19,19 +19,21 @@ public class FuncionarioDao extends Dao {
     
     public Funcionario listar(String email, String senha) {
         String sql = "";
+        List<Funcionario> funcionario = con.query(sql,
+                new BeanPropertyRowMapper(Funcionario.class), email, senha);
         try {
             sql = "SELECT * FROM Funcionario WHERE email = ? AND senha = ?";
-            Logger.escreverLogger("> Select Funcionário ok. - " + Logger.geradorDatas());
+            Logger.escreverLogger("> Select Funcionário"+funcionario.get(0)+" ok" + Logger.geradorDatas());
         } catch (IOException e) {
             Logger.loggerException(e);
         }
-        List<Funcionario> funcionario = con.query(sql,
-                new BeanPropertyRowMapper(Funcionario.class), email, senha);
+        
         
         if (funcionario.isEmpty()) {
             return null;
         }
         return funcionario.get(0);
+        
     }
     
     public void redefinirSenha(String email, String senha, String novaSenha) {
