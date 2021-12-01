@@ -73,5 +73,11 @@
             <artifactId>looca-api</artifactId>
             <version>1.0.1</version>
         </dependency>
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20210307</version>
+            <type>jar</type>
+        </dependency>
     </dependencies>
 </project>

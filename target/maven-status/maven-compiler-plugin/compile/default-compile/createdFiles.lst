@@ -5,10 +5,13 @@ br\com\horus\dao\MonitoramentoHardwareDao.class
 br\com\horus\main\App.class
 br\com\horus\utils\Hostname.class
 br\com\horus\dao\MaquinaDao.class
+br\com\horus\utils\ConexaoSlack.class
 br\com\horus\dao\Dao.class
 br\com\horus\dao\FuncionarioDao.class
 br\com\horus\model\MonitoramentoHardware.class
 br\com\horus\model\MonitoramentoWeb.class
 br\com\horus\utils\Time.class
+br\com\horus\model\Slack.class
+br\com\horus\dao\SlackDao.class
 br\com\horus\model\Funcionario.class
 br\com\horus\model\Maquina.class

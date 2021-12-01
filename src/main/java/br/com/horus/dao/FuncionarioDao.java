@@ -26,9 +26,9 @@ public class FuncionarioDao extends Dao {
         } catch (IOException e) {
             Logger.loggerException(e);
         }
-        List<Funcionario> funcionario = con.query(sql,
+         List<Funcionario> funcionario = con.query(sql,
                 new BeanPropertyRowMapper(Funcionario.class), email, senha);
-        
+         
         if (funcionario.isEmpty()) {
             return null;
         }

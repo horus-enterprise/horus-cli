@@ -1,33 +1,33 @@
 package br.com.horus.main;
+
+import br.com.horus.dao.FuncionarioDao;
+import br.com.horus.dao.MaquinaDao;
 import br.com.horus.dao.MonitoramentoHardwareDao;
 import br.com.horus.model.Funcionario;
-import br.com.horus.dao.FuncionarioDao;
 import br.com.horus.model.Maquina;
-import br.com.horus.dao.MaquinaDao;
 import br.com.horus.model.MonitoramentoHardware;
+import br.com.horus.utils.ConexaoSlack;
 import br.com.horus.utils.Hostname;
 import br.com.horus.utils.Logger;
 import br.com.horus.utils.Session;
-import static br.com.horus.utils.Time.secondsToHHmmss;
 import com.github.britooo.looca.api.core.Looca;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
-
-
-
-
+import java.util.logging.Level;
 
 public class App {
 
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InterruptedException{
+        ConexaoSlack.mensagemInicial();
         String email, senha;
         Logger.criarLogger();
         System.out.println("=====================");
         System.out.println("Horus Application CLI");
         System.out.println("=====================");
+     
         Scanner input = new Scanner(System.in);
         System.out.println("Insira seu email:");
         email = input.nextLine();
@@ -42,7 +42,8 @@ public class App {
             Session.criarSessao(
                     funcionario.getNomeFuncionario(),
                     funcionario.getEmail(),
-                    funcionario.getFkEmpresa()
+                    funcionario.getFkEmpresa(),
+                    funcionario.getIdFuncionario()
             );
  
             MaquinaDao maquinaDAO = new MaquinaDao();
@@ -61,7 +62,13 @@ public class App {
                     Session.setUptime(Session.getUptime() + 1);
                     if (Session.getUptime() % 15 == 0) {
                         System.out.println("Tempo de monitoramento: " + Session.getUptime());
-                        start();
+                        try {
+                            start();
+                        } catch (IOException ex) {
+                            java.util.logging.Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (InterruptedException ex) {
+                            java.util.logging.Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                     }
                 }
             };
@@ -77,7 +84,7 @@ public class App {
         System.out.println("Login bem sucedido!\nAperte CTRL + C para parar o programa.");
     }
 
-    public static void start() {
+    public static void start() throws IOException, InterruptedException {
         MaquinaDao maquinaDAO = new MaquinaDao();
 
         Maquina maquina = maquinaDAO.listar(Hostname.getHostname(),Session.getFkEmpresa());
@@ -94,21 +101,28 @@ public class App {
 
         ocorrencia.setCpuTemperatura(looca.getTemperatura().getTemperatura());
 
-        Long volumeTotal = looca.getGrupoDeDiscos().getVolumes().get(0).getTotal();
-        Long volumeDisponivel = looca.getGrupoDeDiscos().getVolumes().get(0).getDisponivel();
-        Long volumeUso = volumeTotal - volumeDisponivel;
+        Double volumeTotal = looca.getGrupoDeDiscos().getVolumes().get(0).getTotal()/ Math.pow(1024, 3);
+        Double volumeDisponivel = looca.getGrupoDeDiscos().getVolumes().get(0).getDisponivel()/ Math.pow(1024, 3);
+        Double volumeUso = volumeTotal - volumeDisponivel;
 
         Double percentVolumeUso = volumeUso * 100.0 / volumeTotal;
+        ocorrencia.setDisco(percentVolumeUso); 
+        
+        
+        Double totalRam = looca.getMemoria().getTotal()/ Math.pow(1024, 3);
+        Double ramEmUso = looca.getMemoria().getEmUso()/ Math.pow(1024, 3);
+        
+        Double usoRam = ((ramEmUso * 100) / totalRam);       
+        ocorrencia.setRam(usoRam);
 
-        ocorrencia.setDisco(percentVolumeUso);
-        ocorrencia.setRam(looca.getMemoria().getEmUso() / Math.pow(1024, 3));
-
+        
         Long uptime = looca.getSistema().getTempoDeAtividade();
         ocorrencia.setUptime(uptime);
 
         System.out.println(ocorrencia);
 
+        
         MonitoramentoHardwareDao monitoramentoHardwareDAO = new MonitoramentoHardwareDao();
-        monitoramentoHardwareDAO.enviar(ocorrencia);        
+        monitoramentoHardwareDAO.enviar(ocorrencia);       
     }
 }

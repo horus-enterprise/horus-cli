@@ -11,6 +11,7 @@ public class MonitoramentoHardware {
     private Double disco;
     private Double ram;
     private Long uptime;
+    private Integer fkFuncionario;
 
     public Integer getIdOcorrencia() {
         return idOcorrencia;
@@ -79,5 +80,13 @@ public class MonitoramentoHardware {
 
     public void setUptime(Long uptime) {
         this.uptime = uptime;
+    }
+
+    public Integer getFkFuncionario() {
+        return fkFuncionario;
+    }
+
+    public void setFkFuncionario(Integer fkFuncionario) {
+        this.fkFuncionario = fkFuncionario;
     }
 }

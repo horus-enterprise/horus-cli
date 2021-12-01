@@ -15,7 +15,7 @@ public class Dao {
             this.dataSource.setUrl("jdbc:sqlserver://horusdb.database.windows.net:1433;database=Horus");
             this.dataSource.setUsername("horus");
             this.dataSource.setPassword("#Gfgrupo7");
-            Logger.escreverLogger("> Conectado ao servidor: jdbc:sqlserver://horusdb.database.windows.net:1433;database=Horus" +Logger.geradorDatas());
+            Logger.escreverLogger("> Conectado ao servidor: jdbc:sqlserver://horusdb.database.windows.net:1433;database=Horus - "+Logger.geradorDatas());
         } catch (IOException e) {
             Logger.loggerException(e);
             
