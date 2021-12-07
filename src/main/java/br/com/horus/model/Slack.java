@@ -10,15 +10,24 @@ package br.com.horus.model;
  * @author Anderson
  */
 public class Slack {
-    private String url;
+    private Integer idSlack;
+    private String urlSlack;
     private Integer fkEmpresa;
-    
-    public String getUrl() {
-        return url;
+
+    public Integer getIdSlack() {
+        return idSlack;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setIdSlack(Integer idSlack) {
+        this.idSlack = idSlack;
+    }
+
+    public String getUrlSlack() {
+        return urlSlack;
+    }
+
+    public void setUrlSlack(String urlSlack) {
+        this.urlSlack = urlSlack;
     }
 
     public Integer getFkEmpresa() {

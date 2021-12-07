@@ -1,6 +1,7 @@
 package br.com.horus.utils;
 
 public class Time {
+
     public static String secondsToHHmmss(Integer seconds) {
         Integer horas = seconds / 3600;
         Integer minutos = (seconds - (horas * 3600)) / 60;

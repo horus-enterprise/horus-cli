@@ -1,7 +1,5 @@
 package br.com.horus.utils;
 
-import java.io.IOException;
-
 public class Session {
 
     private static String nome;
@@ -9,7 +7,15 @@ public class Session {
     private static Integer fkEmpresa;
     private static Integer uptime = 0;
     private static Integer idFuncionario;
+    private static Integer idMaquina;
 
+    public static Integer getIdMaquina() {
+        return idMaquina;
+    }
+
+    public static void setIdMaquina(Integer idMaquina) {
+        Session.idMaquina = idMaquina;
+    }
 
     public static Integer getIdFuncionario() {
         return idFuncionario;
@@ -18,7 +24,7 @@ public class Session {
     public static void setIdFuncionario(Integer idFuncionario) {
         Session.idFuncionario = idFuncionario;
     }
-    
+
     public static Integer getUptime() {
         return uptime;
     }
@@ -59,15 +65,11 @@ public class Session {
             Session.fkEmpresa = fkEmpresa;
             Session.idFuncionario = idFuncionario;
 
-            Logger.escreverLogger("> Usuário autenticado.");
+            Logger.escreverLogger("> Usuário autenticado. - " + Logger.geradorDatas());
 
-            System.out.println("Sessão validada");
-           
-            Logger.criarJson();
-            System.out.println("json atualizado");
-           
-        } catch (IOException e) {
-            Logger.loggerException(e);
+        } catch (Exception e) {
+            Logger.escreverLogger("Impossível autenticar usuário :"
+                    + e.getMessage() + " - " + Logger.geradorDatas());
         }
 
     }
@@ -78,15 +80,13 @@ public class Session {
             Session.email = null;
             Session.fkEmpresa = null;
             Session.idFuncionario = null;
+            Session.idMaquina = null;
             Logger.criarJson();
-            Logger.escreverLogger("Encerrou essa sessão.");
-        } catch (IOException e) {
-            Logger.loggerException(e);
+            Logger.escreverLogger("Encerrou essa sessão. - " + Logger.geradorDatas());
+        } catch (Exception e) {
+            Logger.escreverLogger("Não foi possível encerrar sessão: "
+                    + e.getMessage() + " - " + Logger.geradorDatas());
         }
-    }
-
-    public static void criarSessao(String nomeFuncionario, String email, Integer fkEmpresa) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

@@ -15,10 +15,10 @@ public class Dao {
             this.dataSource.setUrl("jdbc:sqlserver://horusdb.database.windows.net:1433;database=Horus");
             this.dataSource.setUsername("horus");
             this.dataSource.setPassword("#Gfgrupo7");
-            Logger.escreverLogger("> Conectado ao servidor: jdbc:sqlserver://horusdb.database.windows.net:1433;database=Horus - "+Logger.geradorDatas());
-        } catch (IOException e) {
-            Logger.loggerException(e);
-            
+         Logger.escreverLogger("> Conectado ao servidor: horusdb - " + Logger.geradorDatas());
+        } catch (Exception e) {
+            Logger.escreverLogger("Impossível conectar ao servidor: "
+                    + e.getMessage() + " - " + Logger.geradorDatas());
         }
     }
     

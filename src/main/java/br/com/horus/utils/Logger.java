@@ -18,10 +18,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import org.json.JSONObject;
 
-/**
- *
- * @author Horus
- */
 public class Logger {
 
     static FileOutputStream arquivo;
@@ -62,7 +58,7 @@ public class Logger {
         
         JSONObject json = new JSONObject();
         json.put("idFuncionario", Session.getIdFuncionario());
-        //json.put("idMaquina", idmaquina);
+        json.put("idMaquina", Session.getIdMaquina());
 
         File horus = new File(caminho);
         if (!horus.exists()) {
@@ -73,7 +69,7 @@ public class Logger {
         writer.close();
     }
 
-    public static void escreverLogger(String texto) throws IOException {
+    public static void escreverLogger(String texto) {
         String caminhoPasta = String.format("%s\\horus-loggers\\", System.getProperty("user.home"));
 
         if (caminho >= 1) {
