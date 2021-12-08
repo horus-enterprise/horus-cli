@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package br.com.horus.utils;
-
 import com.github.britooo.looca.api.core.Looca;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -24,8 +23,8 @@ public class Logger {
     static String timeStamp;
     static Integer caminho;
 
-    public static void criarLogger() throws IOException {
-        timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
+       public static void criarLogger() throws IOException {
+      timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
         Looca looca = new Looca();
         String caminhoPasta = String.format("%s/horus-loggers", System.getProperty("user.home"));
 

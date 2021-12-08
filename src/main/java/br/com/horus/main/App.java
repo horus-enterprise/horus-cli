@@ -53,16 +53,15 @@ public class App {
             maquinaDAO.validaMaquina();
             System.out.println("Maquina validada!");
 
-            Maquina maquina = maquinaDAO.listar(Hostname.getHostname(), Session.getFkEmpresa());
-
-            Session.setIdMaquina(maquina.getIdMaquina());
-
             try {
+                System.out.println("mensagem slack");
                 ConexaoSlack.mensagemInicial();
-                
+
             } catch (Exception e) {
             }
 
+            System.out.println("Iniciando monitoramento!");
+            
             final long segundos = (1000);
 
             Timer tempo = new Timer();
@@ -73,8 +72,8 @@ public class App {
                 public void run() {
                     Session.setUptime(Session.getUptime() + 1);
                     
+
                     if (Session.getUptime() % 15 == 0) {
-                        System.out.println("Tempo de monitoramento: " + Session.getUptime());
                         try {
                             start();
                         } catch (IOException | InterruptedException ex) {
@@ -83,8 +82,9 @@ public class App {
                     }
                 }
             };
-            
+
             tempo.scheduleAtFixedRate(monitoramento, 1, segundos);
+            
 
         } else {
             System.out.println("E-mail ou senha incorretos!\nVerifique e tente novamente.");
