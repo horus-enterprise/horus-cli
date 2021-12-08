@@ -69,17 +69,25 @@ public class Logger {
     }
 
     public static void escreverLogger(String texto) {
-        String caminhoPasta = String.format("%s\\horus-loggers\\", System.getProperty("user.home"));
-
-        if (caminho >= 1) {
+        String caminhoWindows = String.format("%s\\horus-loggers\\", System.getProperty("user.home"));
+        String caminhoLinux = String.format("%s/horus-loggers/", System.getProperty("user.home"));
+        
+        if (caminho == 2) {
             try (
-                     FileWriter caminhoTxt = new FileWriter(caminhoPasta + timeStamp + ".txt", true);  BufferedWriter loopEscrever = new BufferedWriter(caminhoTxt);  PrintWriter escreverTexto = new PrintWriter(loopEscrever)) {
+                     FileWriter caminhoTxt = new FileWriter(caminhoWindows + timeStamp + ".txt", true);  BufferedWriter loopEscrever = new BufferedWriter(caminhoTxt);  PrintWriter escreverTexto = new PrintWriter(loopEscrever)) {
                 escreverTexto.println(texto);
 
             } catch (IOException e) {
                 Logger.loggerException(e);
             }
-        } else {
+        } else if(caminho == 1){
+               try( FileWriter caminhoTxt = new FileWriter(caminhoLinux + timeStamp + ".txt", true);  BufferedWriter loopEscrever = new BufferedWriter(caminhoTxt);  PrintWriter escreverTexto = new PrintWriter(loopEscrever)) {
+                
+            } catch (Exception e) {
+            }
+ 
+                
+        }else {
             System.out.println("Sem sucesso, ainda não temos suporte para esse sistema operacional");
         }
     }
