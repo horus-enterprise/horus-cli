@@ -58,15 +58,14 @@ public class App {
 
             } catch (Exception e) {
             }
-
-            System.out.println("Iniciando monitoramento!");
             
             final long segundos = (1000);
 
             Timer tempo = new Timer();
-
+            
+  
             TimerTask monitoramento = new TimerTask() {
-
+             
                 @Override
                 public void run() {
                     Session.setUptime(Session.getUptime() + 1);
@@ -74,6 +73,7 @@ public class App {
 
                     if (Session.getUptime() % 15 == 0) {
                         try {
+                            
                             start();
                         } catch (IOException | InterruptedException ex) {
 
