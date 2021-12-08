@@ -10,7 +10,6 @@ import br.com.horus.model.MonitoramentoHardware;
 import br.com.horus.model.Slack;
 import br.com.horus.utils.ConexaoSlack;
 import br.com.horus.utils.Hostname;
-import br.com.horus.utils.Logger;
 import br.com.horus.utils.Session;
 import com.github.britooo.looca.api.core.Looca;
 import java.io.IOException;
@@ -22,7 +21,7 @@ public class App {
 
     public static void main(String[] args) throws IOException, InterruptedException {
         String email, senha;
-        Logger.criarLogger();
+        
         System.out.println("=====================");
         System.out.println("Horus Application CLI");
         System.out.println("=====================");

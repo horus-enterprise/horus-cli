@@ -59,34 +59,21 @@ public class Session {
 
     public static void criarSessao(String nome, String email, Integer fkEmpresa, Integer idFuncionario) {
 
-        try {
-            Session.nome = nome;
-            Session.email = email;
-            Session.fkEmpresa = fkEmpresa;
-            Session.idFuncionario = idFuncionario;
-
-            Logger.escreverLogger("> Usuário autenticado. - " + Logger.geradorDatas());
-
-        } catch (Exception e) {
-            Logger.escreverLogger("Impossível autenticar usuário :"
-                    + e.getMessage() + " - " + Logger.geradorDatas());
-        }
+        Session.nome = nome;
+        Session.email = email;
+        Session.fkEmpresa = fkEmpresa;
+        Session.idFuncionario = idFuncionario;
 
     }
 
     public static void deletarSessao() {
-        try {
-            Session.nome = null;
-            Session.email = null;
-            Session.fkEmpresa = null;
-            Session.idFuncionario = null;
-            Session.idMaquina = null;
-            Logger.criarJson();
-            Logger.escreverLogger("Encerrou essa sessão. - " + Logger.geradorDatas());
-        } catch (Exception e) {
-            Logger.escreverLogger("Não foi possível encerrar sessão: "
-                    + e.getMessage() + " - " + Logger.geradorDatas());
-        }
+
+        Session.nome = null;
+        Session.email = null;
+        Session.fkEmpresa = null;
+        Session.idFuncionario = null;
+        Session.idMaquina = null;
+
     }
 
 }
